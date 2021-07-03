@@ -3,8 +3,8 @@ import logging
 from flask import Flask, has_request_context, request
 from flask.logging import default_handler
 from werkzeug import exceptions
-from . import minesweeper
-from mongo import db
+from api.mongo import db
+import api.minesweeper as ms
 
 def create_app(test_config=None):
 
@@ -32,10 +32,9 @@ def create_app(test_config=None):
             app.config.from_object('config.Production', silent=True)
         else:
             app.config['MONGODB_SETTINGS'] = {
-                'db': 'test',
-                'host': 'mongodb://127.0.0.1:27017/test'
+                'db': 'arcade',
+                'host': 'mongodb://127.0.0.1:27017/arcade'
             }
-
     else:
         app.config.from_mapping(test_config)
 
@@ -44,7 +43,11 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    app.register_blueprint(minesweeper.bp)
+    app.register_blueprint(ms.bp)
+
+    @app.route('/', methods=['GET','POST'])
+    def default():
+        return '<h1 style="text-align:center">mini-games.gvsalinas.com API</h1>'
 
     @app.errorhandler(exceptions.BadRequest)
     def handle_bad_request(e):
