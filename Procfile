@@ -1,1 +1,1 @@
-web: gunicorn 'api:create_app()' --preload --max-requests 100
+web: bin/qgtunnel gunicorn 'api:create_app()' --preload --max-requests 100
