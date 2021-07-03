@@ -1,4 +1,4 @@
-# Python API for [mini-games](http://games.gvsalinas.com):
+# Python API for [mini-games](https://github.com/GenaroVS/mini-games):
 > Python Flask API meant to interact with Typescript/React frontend and Nginx webserver
 
 ## Minesweeper
@@ -13,6 +13,8 @@
 1. python3 -m venv .venv
 2. pip install -r requirements.txt
 3. Development
-    * flask run
+    ```bash
+    flask run
+    ```
 4. Production
     * TBD

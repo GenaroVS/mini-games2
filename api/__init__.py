@@ -29,7 +29,10 @@ def create_app(test_config=None):
 
     if test_config is None:
         if os.environ.get('FLASK_ENV') == 'production':
-            app.config.from_object('config.Production', silent=True)
+            app.config['MONGODB_SETTINGS'] = {
+                'db': 'arcade',
+                'host': os.environ.get('MONGODB_URI')
+            }
         else:
             app.config['MONGODB_SETTINGS'] = {
                 'db': 'arcade',
