@@ -3,7 +3,6 @@ import logging
 from flask import Flask, has_request_context, request
 from flask.logging import default_handler
 from werkzeug import exceptions
-from api.mongo import db
 import api.minesweeper as ms
 
 def create_app(test_config=None):
@@ -46,6 +45,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    from api.mongo import db
+    db.init_app(app)
+
     app.register_blueprint(ms.bp)
 
     @app.route('/', methods=['GET','POST'])
@@ -60,5 +62,4 @@ def create_app(test_config=None):
     def handle_bad_request(e):
         return 'Internal server error!', 500
 
-    db.init_app(app)
     return app

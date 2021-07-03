@@ -1,6 +1,6 @@
 
 [qgtunnel.0]
 accept = "127.0.0.1:27017"
-connect = "mini-games-us-east.9leua.mongodb.net:"
+connect = "mini-games-us-east.9leua.mongodb.net:27017"
 encrypted = false
 transparent = true
