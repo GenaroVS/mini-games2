@@ -1,6 +1,7 @@
 import os
 import logging
 from flask import Flask, has_request_context, request
+from flask_cors import CORS
 from flask.logging import default_handler
 from werkzeug import exceptions
 import api.minesweeper as ms
@@ -40,10 +41,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+    CORS(app, origins=['http://localhost:3000', 'http://games.gvsalinas.com, http://localhost:80'])
 
     from api.mongo import db
     db.init_app(app)
