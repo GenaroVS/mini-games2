@@ -41,7 +41,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    CORS(app, origins=['http://localhost:3000', 'http://games.gvsalinas.com, http://localhost:80'])
+    CORS(app, origins=['http://localhost:3000', 'http://games.gvsalinas.com', 'http://localhost:80', 'https://games-gvsalinas.herokuapp.com'])
 
     from api.mongo import db
     db.init_app(app)
