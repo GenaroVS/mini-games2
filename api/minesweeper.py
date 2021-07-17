@@ -4,7 +4,7 @@ from api.mongo import Players
 
 bp = Blueprint('ms', __name__, url_prefix='/ms')
 
-MAX_PLAYERS = 5
+MAX_PLAYERS = 10
 
 def format_players(players):
     formated = []
@@ -48,7 +48,7 @@ def get_top_players(level):
 def post_top_players(level):
     top_players = Players.objects(level=level)[:MAX_PLAYERS]
     top_players = format_players(top_players)
-    data = request.args
+    data = request.json
 
     top_players, made_the_top = makes_the_top(top_players, data)
 
