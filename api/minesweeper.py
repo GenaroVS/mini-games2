@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 import mongoengine
+import datetime
 from api.mongo import Players
 
 bp = Blueprint('ms', __name__, url_prefix='/ms')
@@ -21,16 +22,18 @@ def format_players(players):
 def format_date(date):
     return f'{date.day}-{date.month}-{date.year}'
 
-def makes_the_top(top_players, player):
+def makes_the_top(top_players: list, player: dict):
+    _player = player.copy()
+    _player['date'] = format_date(datetime.date.today())
     made_it = False
     for i, top_player in enumerate(top_players):
-        if int(player['score']) <= top_player['score']:
+        if int(_player['score']) <= top_player['score']:
             made_it = True
-            top_players.insert(i, player)
+            top_players.insert(i, _player)
             break
 
     if len(top_players) < MAX_PLAYERS and made_it == False:
-        top_players.append(player)
+        top_players.append(_player)
         made_it = True
     elif len(top_players) >= MAX_PLAYERS and made_it == True:
         top_players.pop()
